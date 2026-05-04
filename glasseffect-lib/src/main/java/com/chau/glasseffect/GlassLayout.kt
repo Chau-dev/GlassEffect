@@ -13,7 +13,7 @@ import com.chau.glasseffect.engine.GlassRenderer
  * It encapsulates the OpenGL ES 3.0 engine, allowing any developer to 
  * implement high-fidelity glassmorphism with a single XML tag.
  */
-class GlassLayout @JvmOverloads constructor(
+open class GlassLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
