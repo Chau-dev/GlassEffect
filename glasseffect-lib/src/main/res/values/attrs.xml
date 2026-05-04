@@ -7,5 +7,9 @@
         <attr name="glass_radius" format="float" />
         <attr name="glass_tilt_x" format="float" />
         <attr name="glass_tilt_y" format="float" />
+        <attr name="glass_width" format="float" />
+        <attr name="glass_height" format="float" />
+        <attr name="glass_offset_x" format="float" />
+        <attr name="glass_offset_y" format="float" />
     </declare-styleable>
 </resources>

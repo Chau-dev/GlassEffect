@@ -22,7 +22,7 @@ class GlassRenderer(private val context: Context) : GLSurfaceView.Renderer {
     var offsetZ = -5.5f 
     
     // Aesthetic perspective tilt: 35 degrees to see the hemispherical ends clearly
-    private var rotationX = 35f 
+    private var rotationX = 0f 
     private var rotationY = 0f
     
     private val modelMatrix = FloatArray(16)
@@ -124,7 +124,7 @@ class GlassRenderer(private val context: Context) : GLSurfaceView.Renderer {
     }
 
     fun setRotation(rx: Float, ry: Float) {
-        rotationX = 35f + rx
+        rotationX = rx
         rotationY = ry
     }
 

@@ -1,4 +1,4 @@
-package com.devas.glasseffect
+package com.chau.glasseffect
 
 import android.content.Context
 import android.graphics.Color
@@ -18,6 +18,36 @@ import android.widget.TextView
  * (Alpha, Stroke, and Tint) to interact beautifully with the Screen-Space Refraction Engine.
  */
 object GlassUIFactory {
+
+    /**
+     * Create a fully interactive 3D refractive glass component with specific lens parameters.
+     */
+    fun createInteractiveLens(
+        context: Context,
+        label: String,
+        width: Float,
+        height: Float,
+        radius: Float,
+        offX: Float,
+        offY: Float,
+        ior: Float = 1.65f,
+        dispersion: Float = 0.08f,
+        absorption: Float = 0.01f,
+        onAction: () -> Unit
+    ): GlassButton {
+        return GlassButton(context).apply {
+            button.text = label
+            setGlassDimensions(width, height, radius * 2f, radius)
+            setLensOffset(offX, offY)
+            
+            // Apply optical properties
+            renderer.material.ior = ior
+            renderer.material.dispersion = dispersion
+            renderer.material.absorption = absorption
+            
+            setOnClickListener { onAction() }
+        }
+    }
 
     fun createGlassButton(context: Context, text: String): Button {
         return Button(context).apply {

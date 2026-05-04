@@ -21,6 +21,15 @@ class GlassSurfaceView(context: Context) : GLSurfaceView(context) {
     // the "Angle of Incidence" is the key to realistic refraction and Fresnel effects.
     private var rotationX: Float = 0f
     private var rotationY: Float = 0f
+    
+    var onMoveListener: ((Float, Float) -> Unit)? = null
+
+    private val gestureDetector = android.view.GestureDetector(context, object : android.view.GestureDetector.SimpleOnGestureListener() {
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
+            performClick()
+            return true
+        }
+    })
 
     private val scaleDetector = ScaleGestureDetector(context, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
         override fun onScale(detector: ScaleGestureDetector): Boolean {
@@ -47,6 +56,7 @@ class GlassSurfaceView(context: Context) : GLSurfaceView(context) {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        gestureDetector.onTouchEvent(event)
         scaleDetector.onTouchEvent(event)
 
         if (scaleDetector.isInProgress) return true
@@ -59,18 +69,13 @@ class GlassSurfaceView(context: Context) : GLSurfaceView(context) {
                 val dx: Float = x - previousX
                 val dy: Float = y - previousY
 
-                // 1. Translational Displacement: Moving the 'Lens' across the UI plane
+                // 2D Translational Displacement: Moving the 'Lens' substrate
+                // independently of the container in the XY plane.
                 val translationSensitivity = 0.01f
                 renderer.offsetX += dx * translationSensitivity
                 renderer.offsetY -= dy * translationSensitivity
-
-                // 2. Angular Displacement (Tilt): 
-                // In Material Science, tilting the shape shifts the surface Normals (N).
-                // This activates the Fresnel effect and shifts the refraction vectors,
-                // making the "light passing through" feel physically substantial.
-                rotationY += dx * 0.15f
-                rotationX += dy * 0.15f
-                renderer.setRotation(rotationX, rotationY)
+                
+                onMoveListener?.invoke(renderer.offsetX, renderer.offsetY)
             }
         }
 

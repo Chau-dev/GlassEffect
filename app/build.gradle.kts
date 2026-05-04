@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.chau.glasseffect"
+        applicationId = "com.devas.glasseffect"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

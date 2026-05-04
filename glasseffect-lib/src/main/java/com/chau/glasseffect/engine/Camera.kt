@@ -27,7 +27,12 @@ class Camera(
     }
     
     fun getProjectionMatrix(): FloatArray {
-        Matrix.perspectiveM(projectionMatrix, 0, fov, aspect, near, far)
+        // Switching to Orthographic projection for 2D UI stability.
+        // This prevents the lens from appearing 'rotated' due to perspective 
+        // as it moves away from the camera's center axis.
+        val orthoHeight = 2.0f 
+        val orthoWidth = orthoHeight * aspect
+        Matrix.orthoM(projectionMatrix, 0, -orthoWidth, orthoWidth, -orthoHeight, orthoHeight, near, far)
         return projectionMatrix
     }
     

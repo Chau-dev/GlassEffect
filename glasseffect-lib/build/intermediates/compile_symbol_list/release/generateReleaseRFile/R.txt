@@ -1,0 +1,17 @@
+int attr glass_dispersion 0x0
+int attr glass_ior 0x0
+int attr glass_radius 0x0
+int attr glass_thickness 0x0
+int attr glass_tilt_x 0x0
+int attr glass_tilt_y 0x0
+int raw glass_fragment 0x0
+int raw glass_vertex 0x0
+int raw skybox_fragment 0x0
+int raw skybox_vertex 0x0
+int[] styleable GlassLayout { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
+int styleable GlassLayout_glass_dispersion 0
+int styleable GlassLayout_glass_ior 1
+int styleable GlassLayout_glass_radius 2
+int styleable GlassLayout_glass_thickness 3
+int styleable GlassLayout_glass_tilt_x 4
+int styleable GlassLayout_glass_tilt_y 5
