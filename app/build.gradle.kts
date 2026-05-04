@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    namespace = "com.devas.glasseffect"
+    namespace = "com.chau.glasseffect"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.devas.glasseffect"
+        applicationId = "com.chau.glasseffect"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

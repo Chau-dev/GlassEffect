@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.devas.glasseffect"
+    namespace = "com.chau.glasseffect"
     compileSdk = 36
 
     defaultConfig {
