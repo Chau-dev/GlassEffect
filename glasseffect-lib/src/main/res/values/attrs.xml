@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GlassLayout">
+        <attr name="glass_ior" format="float" />
+        <attr name="glass_dispersion" format="float" />
+        <attr name="glass_thickness" format="float" />
+        <attr name="glass_radius" format="float" />
+        <attr name="glass_tilt_x" format="float" />
+        <attr name="glass_tilt_y" format="float" />
+    </declare-styleable>
+</resources>

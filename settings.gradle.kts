@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "GlassEffect"
 include(":app")
+include(":glasseffect-lib")
  
