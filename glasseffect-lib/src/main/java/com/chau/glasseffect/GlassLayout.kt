@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import android.view.ViewGroup
 import com.chau.glasseffect.engine.GlassRenderer
 
 /**
