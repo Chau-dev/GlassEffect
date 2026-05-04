@@ -80,6 +80,11 @@ open class GlassLayout @JvmOverloads constructor(
             // Forward clicks from the glass surface to the layout
             glassSurfaceView.setOnClickListener { this.performClick() }
 
+            val autoEnv = a.getBoolean(R.styleable.GlassLayout_glass_auto_environment, false)
+            if (autoEnv) {
+                post { captureEnvironment() }
+            }
+
             a.recycle()
         }
     }
@@ -108,6 +113,31 @@ open class GlassLayout @JvmOverloads constructor(
     fun setEnvironment(bitmap: Bitmap) {
         glassSurfaceView.renderer.setBackgroundImage(bitmap)
     }
+
+    /**
+     * Automatically capture the background of the parent view to use as the refractive environment.
+     */
+    fun captureEnvironment() {
+        val parent = parent as? ViewGroup ?: return
+        
+        // Temporarily hide the glass to see what's behind it
+        val wasVisible = isVisible()
+        visibility = INVISIBLE
+        
+        parent.post {
+            try {
+                val bitmap = Bitmap.createBitmap(parent.width, parent.height, Bitmap.Config.ARGB_8888)
+                val canvas = android.graphics.Canvas(bitmap)
+                parent.draw(canvas)
+                setEnvironment(bitmap)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            if (wasVisible) visibility = VISIBLE
+        }
+    }
+
+    private fun isVisible(): Boolean = visibility == VISIBLE
 
     /**
      * Programmatically update dimensions
