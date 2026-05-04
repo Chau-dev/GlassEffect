@@ -41,7 +41,7 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components["release"])
-                groupId = "com.github.devas"
+                groupId = "com.github.Chau-dev"
                 artifactId = "glasseffect"
                 version = "1.0"
             }
