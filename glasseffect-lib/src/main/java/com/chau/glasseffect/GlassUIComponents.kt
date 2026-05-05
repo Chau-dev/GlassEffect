@@ -21,7 +21,12 @@ class GlassButton @JvmOverloads constructor(
         setTextColor(Color.WHITE)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
     }
-    init { addView(button) }
+    init { 
+        addView(button)
+        // Enforce a professional 'Bevelled Slab' look by default for buttons
+        // Thickness = 2 * Radius creates the perfect hemispherical edge
+        setGlassDimensions(width = 2.4f, height = 0.9f, thickness = 0.8f, radius = 0.4f)
+    }
 
     override fun setOnClickListener(l: OnClickListener?) {
         button.setOnClickListener(l)

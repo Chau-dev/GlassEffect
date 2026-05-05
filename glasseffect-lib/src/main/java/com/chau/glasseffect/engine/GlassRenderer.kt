@@ -57,10 +57,10 @@ class GlassRenderer(private val context: Context) : GLSurfaceView.Renderer {
         // width=4.0, height=1.2, depth=1.2. 
         // radius=0.6 (Exactly height/2 and depth/2) makes it perfectly round at the ends.
         pillMesh = Mesh.createBevelledSlab(
-            width = 4.2f, 
-            height = 1.2f, 
+            width = 2.2f,
+            height = 1.2f,
             depth = 1.2f, 
-            radius = 0.6f, 
+            radius = 0.7f,
             segments = 64 // Dense mesh for liquid-smooth spherical refraction
         )
         
