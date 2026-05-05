@@ -1,9 +1,10 @@
 package com.chau.glasseffect
 
+import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.viewinterop.AndroidView
-import android.view.ViewGroup
 
 /**
  * Jetpack Compose wrapper for GlassLayout.
@@ -14,8 +15,6 @@ import android.view.ViewGroup
  * @param autoEnvironment If true, automatically captures the background behind the glass.
  * @param content The UI content to be placed "inside" the glass lens.
  */
-import androidx.compose.ui.platform.ComposeView
-
 @Composable
 fun Glass(
     modifier: Modifier = Modifier,

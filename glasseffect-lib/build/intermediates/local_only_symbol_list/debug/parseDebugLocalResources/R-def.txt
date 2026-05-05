@@ -1,5 +1,6 @@
 R_DEF: Internal format may change without notice
 local
+attr? glass_auto_environment
 attr? glass_dispersion
 attr? glass_height
 attr? glass_ior
@@ -14,4 +15,4 @@ raw glass_fragment
 raw glass_vertex
 raw skybox_fragment
 raw skybox_vertex
-styleable GlassLayout glass_ior glass_dispersion glass_thickness glass_radius glass_tilt_x glass_tilt_y glass_width glass_height glass_offset_x glass_offset_y
+styleable GlassLayout glass_ior glass_dispersion glass_thickness glass_radius glass_tilt_x glass_tilt_y glass_width glass_height glass_offset_x glass_offset_y glass_auto_environment

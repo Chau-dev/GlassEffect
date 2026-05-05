@@ -1,4 +1,5 @@
 com.chau.glasseffect
+attr glass_auto_environment
 attr glass_dispersion
 attr glass_height
 attr glass_ior
@@ -13,4 +14,4 @@ raw glass_fragment
 raw glass_vertex
 raw skybox_fragment
 raw skybox_vertex
-styleable GlassLayout glass_dispersion glass_height glass_ior glass_offset_x glass_offset_y glass_radius glass_thickness glass_tilt_x glass_tilt_y glass_width
+styleable GlassLayout glass_auto_environment glass_dispersion glass_height glass_ior glass_offset_x glass_offset_y glass_radius glass_thickness glass_tilt_x glass_tilt_y glass_width

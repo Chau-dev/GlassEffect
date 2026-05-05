@@ -11,5 +11,6 @@
         <attr format="float" name="glass_height"/>
         <attr format="float" name="glass_offset_x"/>
         <attr format="float" name="glass_offset_y"/>
+        <attr format="boolean" name="glass_auto_environment"/>
     </declare-styleable>
 </resources>

@@ -1,3 +1,4 @@
+int attr glass_auto_environment 0x0
 int attr glass_dispersion 0x0
 int attr glass_height 0x0
 int attr glass_ior 0x0
@@ -12,14 +13,15 @@ int raw glass_fragment 0x0
 int raw glass_vertex 0x0
 int raw skybox_fragment 0x0
 int raw skybox_vertex 0x0
-int[] styleable GlassLayout { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
-int styleable GlassLayout_glass_dispersion 0
-int styleable GlassLayout_glass_height 1
-int styleable GlassLayout_glass_ior 2
-int styleable GlassLayout_glass_offset_x 3
-int styleable GlassLayout_glass_offset_y 4
-int styleable GlassLayout_glass_radius 5
-int styleable GlassLayout_glass_thickness 6
-int styleable GlassLayout_glass_tilt_x 7
-int styleable GlassLayout_glass_tilt_y 8
-int styleable GlassLayout_glass_width 9
+int[] styleable GlassLayout { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
+int styleable GlassLayout_glass_auto_environment 0
+int styleable GlassLayout_glass_dispersion 1
+int styleable GlassLayout_glass_height 2
+int styleable GlassLayout_glass_ior 3
+int styleable GlassLayout_glass_offset_x 4
+int styleable GlassLayout_glass_offset_y 5
+int styleable GlassLayout_glass_radius 6
+int styleable GlassLayout_glass_thickness 7
+int styleable GlassLayout_glass_tilt_x 8
+int styleable GlassLayout_glass_tilt_y 9
+int styleable GlassLayout_glass_width 10
