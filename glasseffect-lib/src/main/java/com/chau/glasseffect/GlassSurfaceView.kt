@@ -42,6 +42,13 @@ class GlassSurfaceView(context: Context) : GLSurfaceView(context) {
     })
 
     init {
+        // Physicist's Requirement: We need GLES 3.0 for advanced refractive shaders
+        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as android.app.ActivityManager
+        val configInfo = activityManager.deviceConfigurationInfo
+        if (configInfo.reqGlEsVersion < 0x30000) {
+            android.util.Log.e("GlassSurfaceView", "GLES 3.0 not supported on this device. Glass engine will not start.")
+        }
+
         setEGLContextClientVersion(3)
         // Ensure the config supports transparency (Alpha channel) for UI overlay
         setEGLConfigChooser(8, 8, 8, 8, 16, 0)

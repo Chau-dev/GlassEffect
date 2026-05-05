@@ -23,19 +23,43 @@ open class GlassLayout @JvmOverloads constructor(
     private val glassSurfaceView = GlassSurfaceView(context)
     val renderer: GlassRenderer get() = glassSurfaceView.renderer
     
+    private var isGles3Supported = true
+    private var fallbackView: android.view.View? = null
+
+    /**
+     * Programmatic control for automatic background capture.
+     * When true, the layout will automatically capture the background on the next layout pass.
+     */
+    var autoEnvironment: Boolean = false
+        set(value) {
+            field = value
+            if (value && isAttachedToWindow) {
+                post { captureEnvironment() }
+            }
+        }
+
     private var explicitWidth: Float? = null
     private var explicitHeight: Float? = null
     private var explicitRadius: Float? = null
     private var explicitThickness: Float? = null
 
     init {
-        // 1. Add the Glass Engine as the bottom-most layer
-        addView(glassSurfaceView, 0, LayoutParams(
-            LayoutParams.MATCH_PARENT, 
-            LayoutParams.MATCH_PARENT
-        ))
+        // 1. Check for GLES 3.0 Support
+        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as android.app.ActivityManager
+        isGles3Supported = activityManager.deviceConfigurationInfo.reqGlEsVersion >= 0x30000
 
-        // 2. Load XML Attributes for Design Customization
+        if (isGles3Supported) {
+            // 2. Add the Glass Engine as the bottom-most layer
+            addView(glassSurfaceView, 0, LayoutParams(
+                LayoutParams.MATCH_PARENT, 
+                LayoutParams.MATCH_PARENT
+            ))
+        } else {
+            // 3. Fallback: Simple Frosted Glass Aesthetic (Non-refractive)
+            setupFallbackUI()
+        }
+
+        // 4. Load XML Attributes for Design Customization
         attrs?.let {
             val a = context.obtainStyledAttributes(it, R.styleable.GlassLayout)
             
@@ -81,13 +105,25 @@ open class GlassLayout @JvmOverloads constructor(
             // Forward clicks from the glass surface to the layout
             glassSurfaceView.setOnClickListener { this.performClick() }
 
-            val autoEnv = a.getBoolean(R.styleable.GlassLayout_glass_auto_environment, false)
-            if (autoEnv) {
-                post { captureEnvironment() }
-            }
+            autoEnvironment = a.getBoolean(R.styleable.GlassLayout_glass_auto_environment, false)
 
             a.recycle()
         }
+    }
+
+    private fun setupFallbackUI() {
+        val fallback = android.view.View(context).apply {
+            val drawable = android.graphics.drawable.GradientDrawable().apply {
+                shape = android.graphics.drawable.GradientDrawable.RECTANGLE
+                setColor(android.graphics.Color.argb(40, 255, 255, 255))
+                setStroke(2, android.graphics.Color.argb(100, 255, 255, 255))
+                cornerRadius = 30f
+            }
+            background = drawable
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        }
+        fallbackView = fallback
+        addView(fallback, 0)
     }
 
     private fun syncChildrenTranslation(ox: Float, oy: Float) {
@@ -158,6 +194,34 @@ open class GlassLayout @JvmOverloads constructor(
         glassSurfaceView.renderer.offsetX = x
         glassSurfaceView.renderer.offsetY = y
         syncChildrenTranslation(x, y)
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        if (autoEnvironment) {
+            post { captureEnvironment() }
+        }
+        // Observe parent scroll for 'live' refraction updates
+        parent?.let {
+            if (it is android.view.View) {
+                it.viewTreeObserver.addOnScrollChangedListener(scrollListener)
+            }
+        }
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        parent?.let {
+            if (it is android.view.View) {
+                it.viewTreeObserver.removeOnScrollChangedListener(scrollListener)
+            }
+        }
+    }
+
+    private val scrollListener = android.view.ViewTreeObserver.OnScrollChangedListener {
+        if (autoEnvironment) {
+            captureEnvironment()
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
